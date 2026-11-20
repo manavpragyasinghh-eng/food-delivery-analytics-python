@@ -1,0 +1,132 @@
+\nTASK 109: DATASET INSPECTION
+Shape: (500, 9)
+\nFirst 5 rows:\n   Order_ID       City   Restaurant  ...  Order_Status  Payment_Mode  Order_Hour
+0  FD00000      Noida   Green Bowl  ...     Delivered          Card          10
+1  FD00001      Delhi  Pizza Point  ...     Delivered          Cash          22
+2  FD00002  Faridabad  Pizza Point  ...     Delivered          Cash          18
+3  FD00003      Noida  Pizza Point  ...     Delivered           UPI          19
+4  FD00004  Faridabad      Cafe 24  ...     Delivered          Cash          22
+
+[5 rows x 9 columns]
+\nColumn names: ['Order_ID', 'City', 'Restaurant', 'Order_Value', 'Distance_km', 'Delivery_Time_Min', 'Order_Status', 'Payment_Mode', 'Order_Hour']
+\nData types:\n Order_ID              object
+City                  object
+Restaurant            object
+Order_Value          float64
+Distance_km          float64
+Delivery_Time_Min    float64
+Order_Status          object
+Payment_Mode          object
+Order_Hour             int64
+dtype: object
+\nDataset information:
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 500 entries, 0 to 499
+Data columns (total 9 columns):
+ #   Column             Non-Null Count  Dtype  
+---  ------             --------------  -----  
+ 0   Order_ID           500 non-null    object 
+ 1   City               500 non-null    object 
+ 2   Restaurant         500 non-null    object 
+ 3   Order_Value        500 non-null    float64
+ 4   Distance_km        500 non-null    float64
+ 5   Delivery_Time_Min  493 non-null    float64
+ 6   Order_Status       500 non-null    object 
+ 7   Payment_Mode       500 non-null    object 
+ 8   Order_Hour         500 non-null    int64  
+dtypes: float64(3), int64(1), object(5)
+memory usage: 35.3+ KB
+\nTASK 110: MISSING DELIVERY TIMES: 7
+Rows retained for delivery-time analysis: 493
+\nTASK 111: DUPLICATE Order_ID COUNT: 0
+\nTASK 112: TOTAL ORDERS: 500
+              Order_Count  Percentage
+Order_Status                         
+Delivered             407        81.4
+Delayed                47         9.4
+Cancelled              46         9.2
+\nTASK 113: AVERAGE DELIVERY TIME BY CITY
+City
+Faridabad    35.185714
+Delhi        36.043478
+Gurugram     36.087719
+Noida        37.459677
+Name: Delivery_Time_Min, dtype: float64
+\nTASK 114: TOP 5 RESTAURANTS BY TOTAL ORDER VALUE
+Restaurant
+Pizza Point    50662.50
+Green Bowl     49773.47
+Urban Bites    46168.30
+Spice Hub      41464.49
+Cafe 24        39652.52
+Name: Order_Value, dtype: float64
+\nTASK 115: AVERAGE ORDER VALUE BY RESTAURANT
+Restaurant
+Green Bowl     465.172617
+Urban Bites    461.683000
+Cafe 24        455.776092
+Spice Hub      450.700978
+Pizza Point    444.407895
+Name: Order_Value, dtype: float64
+\nTASK 116: ORDERS BY HOUR
+Order_Hour
+8     34
+9     34
+10    38
+11    30
+12    16
+13    36
+14    27
+15    30
+16    26
+17    29
+18    38
+19    31
+20    33
+21    37
+22    29
+23    32
+Name: count, dtype: int64
+Highest-volume hour(s): [10, 18]
+\nTASK 117: DELIVERY TIME BY ORDER STATUS (known times only)
+              count       mean  median   min   max
+Order_Status                                      
+Cancelled        46  36.521739    38.5  10.0  53.0
+Delayed          47  36.191489    35.0  13.0  62.0
+Delivered       400  36.122500    35.0  10.0  75.0
+\nTASK 118: CITY CANCELLATION AND STATUS-DELAY RATES
+Order_Status  Cancelled  Delayed  ...  Status_Delay_Rate_%  Delivered_Rate_%
+City                              ...                                       
+Delhi                12       12  ...            10.084034         79.831933
+Faridabad             9       11  ...             7.801418         85.815603
+Gurugram             13       11  ...             9.565217         79.130435
+Noida                12       13  ...            10.400000         80.000000
+
+[4 rows x 7 columns]
+\nTASK 119: MEDIAN DELIVERY TIME: 36.0
+Sample standard deviation: 11.71809463954073
+\nTASK 120: IQR OUTLIER ANALYSIS
+Q1=28.00, Q3=44.00, IQR=16.00
+Lower bound=4.00, upper bound=68.00
+Outlier count: 2
+\nTASK 121: DELIVERY TIME BANDS
+Delivery_Band
+Fast        151
+Standard    239
+Delayed     103
+Name: count, dtype: int64
+\nTASK 122: REVENUE BY CITY AND PAYMENT MODE
+Payment_Mode      Card      Cash       UPI      Total
+City                                                 
+Delhi         18242.29  17373.79  19298.39   54914.47
+Faridabad     27959.61  20585.91  12414.03   60959.55
+Gurugram      16440.50  21349.48  17616.62   55406.60
+Noida         20550.72  16832.78  19057.16   56440.66
+Total         83193.12  76141.96  68386.20  227721.28
+\nTASK 123: RECOMMENDATIONS
+1. Investigate delivery bottlenecks in Noida, which has the highest city-level average delivery time in the available records.
+2. Review cancellation causes and order-confirmation practices in Gurugram, the city with the highest cancellation rate.
+3. Review staffing, dispatch capacity and restaurant preparation coordination in Noida, which has the highest status-based delay rate.
+4. Plan rider and support capacity around hour(s) 10, 18, the busiest order hour(s) in this dataset.
+5. Study practices and menu/order handling at Pizza Point, the restaurant with the highest total order value; do not assume its performance causes other restaurant outcomes.
+\nAnalysis complete. Check outputs/ and charts/ folders.
